@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function TemplateGenerator({inputTypes}){
 	const [inputsList, setInputsList] = useState([]);
@@ -78,6 +78,11 @@ export default function TemplateGenerator({inputTypes}){
 		}
 	}
 
+	useEffect(() => {
+		const jsonPreviewText = document.querySelector("#json-preview-text");
+		jsonPreviewText.value = JSON.stringify(inputsList);
+	}, [inputsList])
+
 	return (
 		<>
 			<form onSubmit={formSubmitHandler} id="template-generator">
@@ -113,6 +118,9 @@ export default function TemplateGenerator({inputTypes}){
 				{
 					inputsList.map((input, key) => inputRenderer(input, key))
 				}
+			</div>
+			<div id="template-json">
+				<textarea readOnly id="json-preview-text"></textarea>
 			</div>
 		</>
 	);
