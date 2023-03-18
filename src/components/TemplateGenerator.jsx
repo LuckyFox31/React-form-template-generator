@@ -51,6 +51,26 @@ export default function TemplateGenerator({inputTypes}){
 		}
 	}
 
+	function inputRenderer(input, key){
+		switch (input.htmlInput){
+			case 'textarea':
+				return (
+					<p key={key}>
+						<label htmlFor={input.name}>{input.name}</label>
+						<textarea name={input.name} id={input.name}></textarea>
+					</p>
+				)
+
+			default:
+				return (
+					<p key={key}>
+						<label htmlFor={input.name}>{input.name}</label>
+						<input type={input.htmlInput} name={input.name} id={input.name} />
+					</p>
+				)
+		}
+	}
+
 	return (
 		<>
 			<form onSubmit={formSubmitHandler} id="template-generator">
@@ -78,7 +98,11 @@ export default function TemplateGenerator({inputTypes}){
 				</p>
 				<button type="submit">Add input</button>
 			</form>
-			<div id="template-preview"></div>
+			<div id="template-preview">
+				{
+					inputsList.map((input, key) => inputRenderer(input, key))
+				}
+			</div>
 		</>
 	);
 }
