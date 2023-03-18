@@ -85,41 +85,46 @@ export default function TemplateGenerator({inputTypes}){
 
 	return (
 		<>
-			<form onSubmit={formSubmitHandler} id="template-generator">
-				<div id="template-generator-errors-messages-container">
-					{
-						errorsList.map((error, key) => (
-							<p className="error-message" key={key}>The {error} field is required.</p>
-						))
-					}
-				</div>
-				<p>
-					<label htmlFor="input-name">Name:</label>
-					<input onChange={nameChangeHandler} type="text" value={inputName === false ? '' : inputName} placeholder="Enter input name..." name="input-name" id="input-name" required/>
-				</p>
-				<p>
-					<label htmlFor="select-type">Type:</label>
-					<select onChange={selectedInputTypeChangeHandler} defaultValue="none" name="select-type" id="select-type" required>
-						<option value="none" disabled>-- Choose input type --</option>
+			<div>
+				<h2>Form builder:</h2>
+				<form onSubmit={formSubmitHandler} id="template-generator">
+					<div id="template-generator-errors-messages-container">
 						{
-							inputTypes.map((input, key) => (
-								<option key={key}>{input.name}</option>
+							errorsList.map((error, key) => (
+								<p className="error-message" key={key}>The {error} field is required.</p>
 							))
 						}
-					</select>
-				</p>
-				<p>
-					<label htmlFor="checkbox-required">Is required?</label>
-					<input type="checkbox" onChange={isInputRequiredHandler} checked={isInputRequired} name="checkbox-required" id="checkbox-required"/>
-				</p>
-				<button type="submit">Add input</button>
-			</form>
+					</div>
+					<p>
+						<label htmlFor="input-name">Name:</label>
+						<input onChange={nameChangeHandler} type="text" value={inputName === false ? '' : inputName} placeholder="Enter input name..." name="input-name" id="input-name" required/>
+					</p>
+					<p>
+						<label htmlFor="select-type">Type:</label>
+						<select onChange={selectedInputTypeChangeHandler} defaultValue="none" name="select-type" id="select-type" required>
+							<option value="none" disabled>-- Choose input type --</option>
+							{
+								inputTypes.map((input, key) => (
+									<option key={key}>{input.name}</option>
+								))
+							}
+						</select>
+					</p>
+					<p>
+						<label htmlFor="checkbox-required">Is required?</label>
+						<input type="checkbox" onChange={isInputRequiredHandler} checked={isInputRequired} name="checkbox-required" id="checkbox-required"/>
+					</p>
+					<button type="submit">Add input</button>
+				</form>
+			</div>
 			<div id="template-preview">
+				<h2>Form preview:</h2>
 				{
 					inputsList.map((input, key) => inputRenderer(input, key))
 				}
 			</div>
 			<div id="template-json">
+				<h2>JSON preview:</h2>
 				<textarea readOnly id="json-preview-text"></textarea>
 			</div>
 		</>
