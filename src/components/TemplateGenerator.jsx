@@ -5,6 +5,7 @@ export default function TemplateGenerator({inputTypes}){
 	const [errorsList, setErrorsList] = useState([]);
 	const [inputName, setInputName] = useState(false);
 	const [selectedInputType, setSelectedInputType] = useState(false);
+	const [isInputRequired, setIsInputRequired] = useState(false);
 
 	function nameChangeHandler(e){
 		setInputName(e.target.value);
@@ -15,9 +16,14 @@ export default function TemplateGenerator({inputTypes}){
 		setSelectedInputType(inputType);
 	}
 
+	function isInputRequiredHandler(e){
+		setIsInputRequired(e.target.checked);
+	}
+
 	function resetForm(){
 		setErrorsList([]);
 		setInputName(false);
+		setIsInputRequired(false);
 	}
 
 	function checkErrors(){
@@ -38,6 +44,7 @@ export default function TemplateGenerator({inputTypes}){
 			const newInput = {
 				name: inputName,
 				htmlInput: selectedInputType.htmlInput,
+				required: isInputRequired,
 			}
 
 			setInputsList([
@@ -57,7 +64,7 @@ export default function TemplateGenerator({inputTypes}){
 				return (
 					<p key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
-						<textarea name={input.name} id={input.name}></textarea>
+						<textarea name={input.name} id={input.name} required={input.required}></textarea>
 					</p>
 				)
 
@@ -65,7 +72,7 @@ export default function TemplateGenerator({inputTypes}){
 				return (
 					<p key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
-						<input type={input.htmlInput} name={input.name} id={input.name} />
+						<input type={input.htmlInput} name={input.name} id={input.name} required={input.required} />
 					</p>
 				)
 		}
@@ -95,6 +102,10 @@ export default function TemplateGenerator({inputTypes}){
 							))
 						}
 					</select>
+				</p>
+				<p>
+					<label htmlFor="checkbox-required">Is required?</label>
+					<input type="checkbox" onChange={isInputRequiredHandler} checked={isInputRequired} name="checkbox-required" id="checkbox-required"/>
 				</p>
 				<button type="submit">Add input</button>
 			</form>
