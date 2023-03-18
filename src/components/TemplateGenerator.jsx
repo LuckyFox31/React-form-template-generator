@@ -58,6 +58,17 @@ export default function TemplateGenerator({inputTypes}){
 		}
 	}
 
+	function deleteInput(inputToDelete){
+		const newInputList = inputsList.filter((input) => input !== inputToDelete);
+		setInputsList(newInputList);
+	}
+
+	function addDeleteInputButton(key){
+		return (
+			<button onClick={() => deleteInput(key)}>Supprimer</button>
+		)
+	}
+
 	function inputRenderer(input, key){
 		switch (input.htmlInput){
 			case 'textarea':
@@ -65,6 +76,7 @@ export default function TemplateGenerator({inputTypes}){
 					<p className="input-container" key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
 						<textarea name={input.name} id={input.name} required={input.required}></textarea>
+						{addDeleteInputButton(input)}
 					</p>
 				)
 
@@ -73,6 +85,7 @@ export default function TemplateGenerator({inputTypes}){
 					<p className="input-container" key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
 						<input type={input.htmlInput} name={input.name} id={input.name} required={input.required} />
+						{addDeleteInputButton(input)}
 					</p>
 				)
 		}
