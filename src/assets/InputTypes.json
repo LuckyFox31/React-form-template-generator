@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Text",
+    "htmlInput": "text"
+  },
+  {
+    "name": "Text block",
+    "htmlInput": "textarea"
+  },
+  {
+    "name": "Number",
+    "htmlInput": "number"
+  }
+]
