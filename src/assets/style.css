@@ -46,8 +46,12 @@ label{
 	margin-bottom: 0.5rem;
 }
 
-.input-container input, .input-container select{
+.input-container input, .input-container select, .input-container textarea{
 	padding: 0.5rem 1rem;
+}
+
+.input-container textarea{
+	min-height: 5rem;
 }
 
 .checkbox-container{
