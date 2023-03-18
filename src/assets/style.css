@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+h1, h2, p, label, button, input, select{
+	font-family: 'Poppins', sans-serif;
+}
+
+header{
+	width: 100%;
+	height: 5rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background-color: #283747;
+	color: white;
+}
+
+h2{
+	margin-bottom: 1rem;
+}
+
+main{
+	width: 100%;
+	padding: 1rem;
+}
+
+label{
+	font-weight: 600;
+}
+
+.input-container{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+
+.input-container label{
+	margin-bottom: 0.5rem;
+}
+
+.input-container input, .input-container select{
+	padding: 0.5rem 1rem;
+}
+
+.checkbox-container{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.checkbox-container label {
+	margin-right: 1rem;
+}
+
+#add-input-button{
+	width: 100%;
+	padding: 1rem;
+}
+
+#template-generator, #template-preview, #template-json{
+	margin-bottom: 2rem;
+}
+
+#template-json textarea{
+	width: 100%;
+	min-height: 5rem;
+}

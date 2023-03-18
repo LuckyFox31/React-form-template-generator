@@ -7,7 +7,9 @@ function App() {
       <header>
           <h1>React form template generator</h1>
       </header>
-      <TemplateGenerator inputTypes={InputTypes} />
+      <main>
+          <TemplateGenerator inputTypes={InputTypes} />
+      </main>
     </div>
   )
 }

@@ -62,7 +62,7 @@ export default function TemplateGenerator({inputTypes}){
 		switch (input.htmlInput){
 			case 'textarea':
 				return (
-					<p key={key}>
+					<p className="input-container" key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
 						<textarea name={input.name} id={input.name} required={input.required}></textarea>
 					</p>
@@ -70,7 +70,7 @@ export default function TemplateGenerator({inputTypes}){
 
 			default:
 				return (
-					<p key={key}>
+					<p className="input-container" key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
 						<input type={input.htmlInput} name={input.name} id={input.name} required={input.required} />
 					</p>
@@ -95,11 +95,11 @@ export default function TemplateGenerator({inputTypes}){
 							))
 						}
 					</div>
-					<p>
+					<p className="input-container">
 						<label htmlFor="input-name">Name:</label>
 						<input onChange={nameChangeHandler} type="text" value={inputName === false ? '' : inputName} placeholder="Enter input name..." name="input-name" id="input-name" required/>
 					</p>
-					<p>
+					<p className="input-container">
 						<label htmlFor="select-type">Type:</label>
 						<select onChange={selectedInputTypeChangeHandler} defaultValue="none" name="select-type" id="select-type" required>
 							<option value="none" disabled>-- Choose input type --</option>
@@ -110,11 +110,11 @@ export default function TemplateGenerator({inputTypes}){
 							}
 						</select>
 					</p>
-					<p>
+					<p className="checkbox-container">
 						<label htmlFor="checkbox-required">Is required?</label>
 						<input type="checkbox" onChange={isInputRequiredHandler} checked={isInputRequired} name="checkbox-required" id="checkbox-required"/>
 					</p>
-					<button type="submit">Add input</button>
+					<button id="add-input-button" type="submit">Add input</button>
 				</form>
 			</div>
 			<div id="template-preview">
