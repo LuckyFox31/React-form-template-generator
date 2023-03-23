@@ -7,6 +7,7 @@ export default function TemplateGenerator({inputTypes}){
 	const [selectedInputType, setSelectedInputType] = useState(false);
 	const [isInputRequired, setIsInputRequired] = useState(false);
 
+
 	function nameChangeHandler(e){
 		setInputName(e.target.value);
 	}
@@ -35,47 +36,130 @@ export default function TemplateGenerator({inputTypes}){
 		return errorList;
 	}
 
+	function addInputInList(){
+		let newInput;
+
+		if(selectedInputType.blockInput){
+			newInput = {
+				name: inputName,
+				htmlInput: selectedInputType.htmlInput,
+				required: isInputRequired,
+				blockInput: true,
+				inputs: [],
+			}
+		} else {
+			newInput = {
+				name: inputName,
+				htmlInput: selectedInputType.htmlInput,
+				required: isInputRequired,
+			}
+		}
+
+		setInputsList([
+			...inputsList,
+			newInput,
+		])
+
+		resetForm();
+	}
+
 	function formSubmitHandler(e){
 		e.preventDefault();
 
 		const errors = checkErrors();
 
 		if(!errors.length){
-			const newInput = {
-				name: inputName,
-				htmlInput: selectedInputType.htmlInput,
-				required: isInputRequired,
-			}
-
-			setInputsList([
-				...inputsList,
-				newInput,
-			])
-
-			resetForm();
+			addInputInList();
 		} else {
 			setErrorsList(errors);
 		}
 	}
 
 	function deleteInput(inputToDelete){
-		const newInputList = inputsList.filter((input) => input !== inputToDelete);
-		setInputsList(newInputList);
+		if(inputToDelete.parent){
+			const newInputList = [...inputsList];
+			const currentParentInput = newInputList.find((input) => input.name === inputToDelete.parent);
+			const newChildInputsList = currentParentInput.inputs.filter((input) => input !== inputToDelete);
+			newInputList[newInputList.indexOf(currentParentInput)].inputs = newChildInputsList;
+			setInputsList(newInputList);
+
+		} else {
+			const newInputList = inputsList.filter((input) => input !== inputToDelete);
+			setInputsList(newInputList);
+		}
 	}
 
-	function addDeleteInputButton(key){
+	function addDeleteInputButton(input){
 		return (
-			<button onClick={() => deleteInput(key)}>Supprimer</button>
+			<button onClick={() => deleteInput(input)}>Supprimer</button>
 		)
 	}
 
+	function displayAllChildInputFromBlockInput(blockInput){
+		const allChildInputs = inputsList.find((input) => input === blockInput).inputs;
+
+		return allChildInputs.map((childInput, key) => inputRenderer(childInput, key));
+	}
+
+	function addInputInBlockInput(blockInput, childInputType, childNameInputElement, childCheckboxIsRequiredElement){
+		const currentBlockInput = inputsList.find((input) => input === blockInput);
+
+		const newInputList = [...inputsList];
+		newInputList[newInputList.indexOf(currentBlockInput)].inputs = [
+			...currentBlockInput.inputs,
+			{
+				'parent': currentBlockInput.name,
+				'name': childNameInputElement.value,
+				'htmlInput': childInputType,
+				'required': childCheckboxIsRequiredElement.checked,
+			}
+		]
+		setInputsList(newInputList);
+
+		childNameInputElement.value = "";
+		childCheckboxIsRequiredElement.checked = false;
+	}
+
 	function inputRenderer(input, key){
+		if(input.blockInput){
+			return (
+				<div key={key}>
+					<div>
+						<p className="input-label">{input.name}</p>
+						{
+							displayAllChildInputFromBlockInput(input)
+						}
+					</div>
+					<div>
+						<p className="input-container">
+							<label htmlFor={`new-${input.name}-name`}>Add choice in {input.name}</label>
+							<input type="text" id={`new-${input.name}-name`} name={`new-${input.name}-name`}/>
+						</p>
+						<p className="checkbox-container">
+							<label htmlFor={`new-${input.name}-checkbox-required`}>Is required?</label>
+							<input type="checkbox" name={`new-${input.name}-checkbox-required`} id={`new-${input.name}-checkbox-required`} />
+						</p>
+						<button type="button" onClick={() => addInputInBlockInput(input, input.htmlInput, document.querySelector(`#new-${input.name}-name`), document.querySelector(`#new-${input.name}-checkbox-required`))}>Add choice</button>
+					</div>
+				</div>
+			)
+		}
+
 		switch (input.htmlInput){
 			case 'textarea':
 				return (
 					<p className="input-container" key={key}>
 						<label htmlFor={input.name}>{input.name}</label>
 						<textarea name={input.name} id={input.name} required={input.required}></textarea>
+						{addDeleteInputButton(input)}
+					</p>
+				)
+
+			case 'checkbox':
+				return (
+					<p className="checkbox-container" key={key}>
+						<label htmlFor={input.name}>{input.name}</label>
+						<input type="checkbox" id={input.name} name={input.parent ?? input.name} required={input.required} />
 						{addDeleteInputButton(input)}
 					</p>
 				)

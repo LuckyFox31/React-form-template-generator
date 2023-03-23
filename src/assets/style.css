@@ -31,7 +31,7 @@ main{
 	padding: 1rem;
 }
 
-label{
+label, .input-label{
 	font-weight: 600;
 }
 
@@ -42,7 +42,7 @@ label{
 	margin-bottom: 1rem;
 }
 
-.input-container label{
+.input-container label, .input-label{
 	margin-bottom: 0.5rem;
 }
 

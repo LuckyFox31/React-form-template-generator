@@ -10,5 +10,10 @@
   {
     "name": "Number",
     "htmlInput": "number"
+  },
+  {
+    "name": "Multiple choice",
+    "htmlInput": "checkbox",
+    "blockInput": true
   }
 ]
