@@ -14,11 +14,13 @@
   {
     "name": "Checkboxes",
     "htmlInput": "checkbox",
-    "blockInput": true
+    "blockInput": true,
+    "parentIsRequiredInputShown": false
   },
   {
     "name": "Multiple choice",
     "htmlInput": "radio",
-    "blockInput": true
+    "blockInput": true,
+    "parentIsRequiredInputShown": true
   }
 ]

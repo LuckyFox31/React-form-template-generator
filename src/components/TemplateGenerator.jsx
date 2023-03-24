@@ -220,10 +220,14 @@ export default function TemplateGenerator({inputTypes}){
 							}
 						</select>
 					</p>
-					<p className="checkbox-container">
-						<label htmlFor="checkbox-required">Is required?</label>
-						<input type="checkbox" onChange={isInputRequiredHandler} checked={isInputRequired} name="checkbox-required" id="checkbox-required"/>
-					</p>
+					{
+						selectedInputType.hasOwnProperty('parentIsRequiredInputShown') && !selectedInputType.parentIsRequiredInputShown ? null : (
+							<p className="checkbox-container">
+								<label htmlFor="checkbox-required">Is required?</label>
+								<input type="checkbox" onChange={isInputRequiredHandler} checked={isInputRequired} name="checkbox-required" id="checkbox-required"/>
+							</p>
+						)
+					}
 					<button id="add-input-button" type="submit">Add input</button>
 				</form>
 			</div>
