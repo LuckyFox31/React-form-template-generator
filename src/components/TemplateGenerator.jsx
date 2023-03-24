@@ -36,12 +36,19 @@ export default function TemplateGenerator({inputTypes}){
 		return errorList;
 	}
 
+	function checkChildIsRequiredInputShown(parentInput){
+		const currentTemplateInputType = inputTypes.find((inputType) => inputType.name === parentInput.templateInputName);
+
+		return currentTemplateInputType.hasOwnProperty('childIsRequiredInputShown') ? currentTemplateInputType.childIsRequiredInputShown : true;
+	}
+
 	function addInputInList(){
 		let newInput;
 
 		if(selectedInputType.blockInput){
 			newInput = {
 				name: inputName,
+				templateInputName: selectedInputType.name,
 				htmlInput: selectedInputType.htmlInput,
 				required: isInputRequired,
 				blockInput: true,
@@ -50,6 +57,7 @@ export default function TemplateGenerator({inputTypes}){
 		} else {
 			newInput = {
 				name: inputName,
+				templateInputName: selectedInputType.name,
 				htmlInput: selectedInputType.htmlInput,
 				required: isInputRequired,
 			}
@@ -91,7 +99,7 @@ export default function TemplateGenerator({inputTypes}){
 
 	function addDeleteInputButton(input){
 		return (
-			<button onClick={() => deleteInput(input)}>Supprimer</button>
+			<button onClick={() => deleteInput(input)}>Delete</button>
 		)
 	}
 
@@ -131,7 +139,11 @@ export default function TemplateGenerator({inputTypes}){
 					<div>
 						<p className="input-label">{input.name}</p>
 						{
-							displayAllChildInputFromBlockInput(input)
+							input.htmlInput === 'select' ? (
+								<ol className="form-select-input">
+									{displayAllChildInputFromBlockInput(input)}
+								</ol>
+							) : displayAllChildInputFromBlockInput(input)
 						}
 					</div>
 					<div>
@@ -139,7 +151,7 @@ export default function TemplateGenerator({inputTypes}){
 							<label htmlFor={`new-${replaceSpacesWithHyphens(input.name)}-name`}>Add choice in {input.name}</label>
 							<input type="text" id={`new-${replaceSpacesWithHyphens(input.name)}-name`} name={`new-${replaceSpacesWithHyphens(input.name)}-name`}/>
 						</p>
-						<p className="checkbox-container">
+						<p className="checkbox-container" style={{display: checkChildIsRequiredInputShown(input) ? "block" : "none"}}>
 							<label htmlFor={`new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`}>Is required?</label>
 							<input type="checkbox" name={`new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`} id={`new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`} />
 						</p>
@@ -176,6 +188,14 @@ export default function TemplateGenerator({inputTypes}){
 						<input type="radio" id={replaceSpacesWithHyphens(input.name)} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name)} required={input.required} />
 						{addDeleteInputButton(input)}
 					</p>
+				)
+
+			case 'select':
+				return (
+					<li key={key}>
+						<p className="input-label">{input.name}</p>
+						{addDeleteInputButton(input)}
+					</li>
 				)
 
 			default:

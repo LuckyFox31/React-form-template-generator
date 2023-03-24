@@ -65,6 +65,15 @@ label, .input-label{
 	margin-right: 1rem;
 }
 
+.form-select-input{
+	margin-left: 1rem;
+}
+
+.form-select-input li p {
+	display: inline;
+	margin-right: 1rem;
+}
+
 #add-input-button{
 	width: 100%;
 	padding: 1rem;
