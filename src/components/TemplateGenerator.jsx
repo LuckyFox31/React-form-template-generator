@@ -120,6 +120,10 @@ export default function TemplateGenerator({inputTypes}){
 		childCheckboxIsRequiredElement.checked = false;
 	}
 
+	function replaceSpacesWithHyphens(name){
+		return name.split(' ').join('-');
+	}
+
 	function inputRenderer(input, key){
 		if(input.blockInput){
 			return (
@@ -132,14 +136,14 @@ export default function TemplateGenerator({inputTypes}){
 					</div>
 					<div>
 						<p className="input-container">
-							<label htmlFor={`new-${input.name}-name`}>Add choice in {input.name}</label>
-							<input type="text" id={`new-${input.name}-name`} name={`new-${input.name}-name`}/>
+							<label htmlFor={`new-${replaceSpacesWithHyphens(input.name)}-name`}>Add choice in {input.name}</label>
+							<input type="text" id={`new-${replaceSpacesWithHyphens(input.name)}-name`} name={`new-${replaceSpacesWithHyphens(input.name)}-name`}/>
 						</p>
 						<p className="checkbox-container">
-							<label htmlFor={`new-${input.name}-checkbox-required`}>Is required?</label>
-							<input type="checkbox" name={`new-${input.name}-checkbox-required`} id={`new-${input.name}-checkbox-required`} />
+							<label htmlFor={`new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`}>Is required?</label>
+							<input type="checkbox" name={`new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`} id={`new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`} />
 						</p>
-						<button type="button" onClick={() => addInputInBlockInput(input, input.htmlInput, document.querySelector(`#new-${input.name}-name`), document.querySelector(`#new-${input.name}-checkbox-required`))}>Add choice</button>
+						<button type="button" onClick={() => addInputInBlockInput(input, input.htmlInput, document.querySelector(`#new-${replaceSpacesWithHyphens(input.name)}-name`), document.querySelector(`#new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`))}>Add choice</button>
 					</div>
 				</div>
 			)
@@ -149,8 +153,8 @@ export default function TemplateGenerator({inputTypes}){
 			case 'textarea':
 				return (
 					<p className="input-container" key={key}>
-						<label htmlFor={input.name}>{input.name}</label>
-						<textarea name={input.name} id={input.name} required={input.required}></textarea>
+						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
+						<textarea name={replaceSpacesWithHyphens(input.name)} id={replaceSpacesWithHyphens(input.name)} required={input.required}></textarea>
 						{addDeleteInputButton(input)}
 					</p>
 				)
@@ -158,8 +162,8 @@ export default function TemplateGenerator({inputTypes}){
 			case 'checkbox':
 				return (
 					<p className="checkbox-container" key={key}>
-						<label htmlFor={input.name}>{input.name}</label>
-						<input type="checkbox" id={input.name} name={input.parent ?? input.name} required={input.required} />
+						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
+						<input type="checkbox" id={replaceSpacesWithHyphens(input.name)} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name)} required={input.required} />
 						{addDeleteInputButton(input)}
 					</p>
 				)
@@ -167,8 +171,8 @@ export default function TemplateGenerator({inputTypes}){
 			default:
 				return (
 					<p className="input-container" key={key}>
-						<label htmlFor={input.name}>{input.name}</label>
-						<input type={input.htmlInput} name={input.name} id={input.name} required={input.required} />
+						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
+						<input type={input.htmlInput} name={replaceSpacesWithHyphens(input.name)} id={replaceSpacesWithHyphens(input.name)} required={input.required} />
 						{addDeleteInputButton(input)}
 					</p>
 				)
