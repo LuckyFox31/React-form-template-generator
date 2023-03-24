@@ -168,6 +168,15 @@ export default function TemplateGenerator({inputTypes}){
 					</p>
 				)
 
+			case 'radio':
+				return (
+					<p className="radio-container" key={key}>
+						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
+						<input type="radio" id={replaceSpacesWithHyphens(input.name)} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name)} required={input.required} />
+						{addDeleteInputButton(input)}
+					</p>
+				)
+
 			default:
 				return (
 					<p className="input-container" key={key}>

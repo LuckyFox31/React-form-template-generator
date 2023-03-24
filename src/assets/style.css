@@ -54,14 +54,14 @@ label, .input-label{
 	min-height: 5rem;
 }
 
-.checkbox-container{
+.checkbox-container, .radio-container{
 	width: 100%;
 	display: flex;
 	align-items: center;
 	margin-bottom: 1rem;
 }
 
-.checkbox-container label {
+.checkbox-container label, .radio-container label {
 	margin-right: 1rem;
 }
 

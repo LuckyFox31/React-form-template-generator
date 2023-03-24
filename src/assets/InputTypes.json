@@ -12,8 +12,13 @@
     "htmlInput": "number"
   },
   {
-    "name": "Multiple choice",
+    "name": "Checkboxes",
     "htmlInput": "checkbox",
+    "blockInput": true
+  },
+  {
+    "name": "Multiple choice",
+    "htmlInput": "radio",
     "blockInput": true
   }
 ]
