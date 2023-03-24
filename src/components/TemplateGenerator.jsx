@@ -145,6 +145,7 @@ export default function TemplateGenerator({inputTypes}){
 						</p>
 						<button type="button" onClick={() => addInputInBlockInput(input, input.htmlInput, document.querySelector(`#new-${replaceSpacesWithHyphens(input.name)}-name`), document.querySelector(`#new-${replaceSpacesWithHyphens(input.name)}-checkbox-required`))}>Add choice</button>
 					</div>
+					{addDeleteInputButton(input)}
 				</div>
 			)
 		}
