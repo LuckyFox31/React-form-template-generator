@@ -7,6 +7,10 @@ export default function FormGenerator({template}){
 		e.preventDefault();
 	}
 
+	function generateRandomStringId(){
+		return Math.random().toString(36).substring(2,7);
+	}
+
 	function displayAllChildInputFromBlockInput(blockInput){
 		const allChildInputs = template.find((input) => input === blockInput).inputs;
 
@@ -33,28 +37,30 @@ export default function FormGenerator({template}){
 			)
 		}
 
+		const randomId = generateRandomStringId();
+
 		switch (input.htmlInput){
 			case 'textarea':
 				return (
 					<p className="input-container" key={key}>
-						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
-						<textarea name={replaceSpacesWithHyphens(input.name)} id={replaceSpacesWithHyphens(input.name)} required={input.required}></textarea>
+						<label htmlFor={replaceSpacesWithHyphens(input.name) + '-' + randomId}>{input.name}</label>
+						<textarea name={replaceSpacesWithHyphens(input.name) + '-' + randomId} id={replaceSpacesWithHyphens(input.name) + '-' + randomId} required={input.required}></textarea>
 					</p>
 				)
 
 			case 'checkbox':
 				return (
 					<p className="checkbox-container" key={key}>
-						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
-						<input type="checkbox" id={replaceSpacesWithHyphens(input.name)} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name)} required={input.required} />
+						<label htmlFor={replaceSpacesWithHyphens(input.name) + '-' + randomId}>{input.name}</label>
+						<input type="checkbox" id={replaceSpacesWithHyphens(input.name) + '-' + randomId} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name) + '-' + randomId} required={input.required} />
 					</p>
 				)
 
 			case 'radio':
 				return (
 					<p className="radio-container" key={key}>
-						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
-						<input type="radio" id={replaceSpacesWithHyphens(input.name)} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name)} required={input.required} />
+						<label htmlFor={replaceSpacesWithHyphens(input.name) + '-' + randomId}>{input.name}</label>
+						<input type="radio" id={replaceSpacesWithHyphens(input.name) + '-' + randomId} name={input.parent ? replaceSpacesWithHyphens(input.parent) : replaceSpacesWithHyphens(input.name) + '-' + randomId} required={input.required} />
 					</p>
 				)
 
@@ -68,8 +74,8 @@ export default function FormGenerator({template}){
 			default:
 				return (
 					<p className="input-container" key={key}>
-						<label htmlFor={replaceSpacesWithHyphens(input.name)}>{input.name}</label>
-						<input type={input.htmlInput} name={replaceSpacesWithHyphens(input.name)} id={replaceSpacesWithHyphens(input.name)} required={input.required} />
+						<label htmlFor={replaceSpacesWithHyphens(input.name) + '-' + randomId}>{input.name}</label>
+						<input type={input.htmlInput} name={replaceSpacesWithHyphens(input.name) + '-' + randomId} id={replaceSpacesWithHyphens(input.name) + '-' + randomId} required={input.required} />
 					</p>
 				)
 		}
