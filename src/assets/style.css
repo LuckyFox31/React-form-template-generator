@@ -78,16 +78,17 @@ label, .input-label{
 	width: 100%;
 }
 
-#add-input-button{
+#add-input-button, #submit-form-button{
 	width: 100%;
 	padding: 1rem;
+	margin-top: 2rem;
 }
 
 #template-generator, #template-preview, #template-json{
 	margin-bottom: 2rem;
 }
 
-#template-json textarea{
+#template-json textarea, #data-json textarea{
 	width: 100%;
 	min-height: 5rem;
 }

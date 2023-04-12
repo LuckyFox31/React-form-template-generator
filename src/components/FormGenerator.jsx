@@ -89,8 +89,12 @@ export default function FormGenerator({template}){
 					{
 						template.map((input, key) => inputRenderer(input, key))
 					}
-					<button type="submit">Send form</button>
+					<button id="submit-form-button" type="submit">Send form</button>
 				</form>
+			</div>
+			<div id="data-json">
+				<h2>JSON data:</h2>
+				<textarea readOnly id="json-preview-data"></textarea>
 			</div>
 		</>
 	)
