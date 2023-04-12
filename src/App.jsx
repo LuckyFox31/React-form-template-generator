@@ -1,5 +1,7 @@
 import TemplateGenerator from "./components/TemplateGenerator.jsx";
 import InputTypes from "./assets/InputTypes.json";
+import FormGenerator from "./components/FormGenerator.jsx";
+import DemoJsonFile from "./assets/DemoJsonFile.json";
 
 function App() {
   return (
@@ -9,6 +11,8 @@ function App() {
       </header>
       <main>
           <TemplateGenerator inputTypes={InputTypes} />
+          <hr />
+          <FormGenerator template={DemoJsonFile} />
       </main>
     </div>
   )

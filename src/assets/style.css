@@ -87,3 +87,7 @@ label, .input-label{
 	width: 100%;
 	min-height: 5rem;
 }
+
+hr{
+	margin-bottom: 2rem;
+}
