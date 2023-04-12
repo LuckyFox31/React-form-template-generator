@@ -46,7 +46,7 @@ label, .input-label{
 	margin-bottom: 0.5rem;
 }
 
-.input-container input, .input-container select, .input-container textarea{
+.input-container input, .input-container select, .input-container textarea, .form-select-generator-input{
 	padding: 0.5rem 1rem;
 }
 
@@ -72,6 +72,10 @@ label, .input-label{
 .form-select-input li p {
 	display: inline;
 	margin-right: 1rem;
+}
+
+.form-select-generator-input{
+	width: 100%;
 }
 
 #add-input-button{

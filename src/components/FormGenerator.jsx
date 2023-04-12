@@ -24,7 +24,7 @@ export default function FormGenerator({template}){
 					<p className="input-label">{input.name}</p>
 					{
 						input.htmlInput === 'select' ? (
-							<select className="form-select-input">
+							<select className="form-select-generator-input">
 								{displayAllChildInputFromBlockInput(input)}
 							</select>
 						) : displayAllChildInputFromBlockInput(input)
