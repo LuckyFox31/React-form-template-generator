@@ -60,7 +60,10 @@ export default function FormGenerator({template}){
 					<p className="input-label">{input.name}</p>
 					{
 						input.htmlInput === 'select' ? (
-							<select className="form-select-generator-input" name={replaceSpacesWithHyphens(input.name) + '_' + randomId} onChange={inputChangeHandler}>
+							<select className="form-select-generator-input" name={replaceSpacesWithHyphens(input.name) + '_' + randomId} onChange={inputChangeHandler} defaultValue="">
+								<option value="" disabled hidden>
+									-- Select option ---
+								</option>
 								{displayAllChildInputFromBlockInput(input)}
 							</select>
 						) : displayAllChildInputFromBlockInput(input)
